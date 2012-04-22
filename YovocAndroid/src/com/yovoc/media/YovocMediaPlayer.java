@@ -1,4 +1,4 @@
-package media;
+package com.yovoc.media;
 
 import java.io.IOException;
 import android.media.MediaPlayer;
