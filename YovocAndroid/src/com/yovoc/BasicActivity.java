@@ -24,6 +24,8 @@ public class BasicActivity extends Activity{
 	protected List<TermModel> getImageTerms() { return getTerminsByType(TermModel.IMAGE_TYPE); }
 	
 	protected List<TermModel> getTextTerms() { return getTerminsByType(TermModel.TEXT_TYPE); }
+	
+	protected List<TermModel> getVideoTerms() { return getTerminsByType(TermModel.VIDEO_TYPE); }
 
 	protected void setAudioTypeTerm(final String termin, final String description){
 		setTermin(termin, description, TermModel.AUDIO_TYPE);
@@ -35,5 +37,9 @@ public class BasicActivity extends Activity{
 	
 	protected void setImageTypeTerm(final String termin, final String description) {
 		setTermin(termin, description, TermModel.IMAGE_TYPE);
+	}
+	
+	protected void setVideoTypeTerm(final String termin, final String description) {
+		setTermin(termin, description, TermModel.VIDEO_TYPE);
 	}
 }
