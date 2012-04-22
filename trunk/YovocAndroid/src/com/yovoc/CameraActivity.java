@@ -18,6 +18,7 @@ public class CameraActivity extends BasicActivity {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
 	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST = 200;
 	private Uri uri;
+	private File mediaFile;
 	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -38,13 +39,12 @@ public class CameraActivity extends BasicActivity {
 		
 		if(!mediaStorage.exists()) {
 			if(!mediaStorage.mkdirs()){
-				Log.e("CAMERA:", "Cannot create directory");
+				Log.e("Yovoc:", "Cannot create directory");
 				return null;
 			}
 		}
 		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-		File mediaFile;
 		
 		if (type == MEDIA_TYPE_IMAGE) {
 			mediaFile = new File(mediaStorage.getPath() + File.separator 
@@ -64,7 +64,8 @@ public class CameraActivity extends BasicActivity {
 	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST || requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST) {
 			if(resultCode == RESULT_OK) {
-				startActivity(new Intent(this, SetterActivity.class).putExtra("path", data.getData()));
+				Uri uri = Uri.parse(mediaFile.getPath());
+				startActivity(new Intent(this, SetterActivity.class).putExtra("path", uri));
 			} else if (resultCode == RESULT_CANCELED) {
 				startActivity(new Intent(this, SetterActivity.class));
 			}

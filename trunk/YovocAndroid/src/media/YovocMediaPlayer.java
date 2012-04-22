@@ -1,19 +1,13 @@
 package media;
 
 import java.io.IOException;
-
-import android.content.Context;
 import android.media.MediaPlayer;
-import android.net.Uri;
 
 public class YovocMediaPlayer  {
 	MediaPlayer mp;
-
 	
 	public YovocMediaPlayer(){
 		mp = new MediaPlayer();
-		
-		
 	}	
 	
 	public void yovocMPStart() {
@@ -44,10 +38,5 @@ public class YovocMediaPlayer  {
 	public void yovocMPStop(){
 		mp.stop();
 		mp.release();
-		
 	}
-	
-	
-		
-
 }

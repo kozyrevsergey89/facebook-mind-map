@@ -9,8 +9,10 @@ public class SetterActivity extends BasicActivity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Uri uri = (Uri)getIntent().getExtras().get("path");
-		Log.i("Yovoc", uri.getPath());
+		if (!getIntent().getExtras().containsKey("path")) {
+			Uri uri = (Uri)getIntent().getExtras().get("path");
+			Log.i("Yovoc", uri.getPath());
+		}
 	}
 	
 }
