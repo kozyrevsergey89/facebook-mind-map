@@ -16,6 +16,7 @@ public class CameraActivity extends BasicActivity {
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	public static final int MEDIA_TYPE_VIDEO = 2;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST = 100;
+	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST = 200;
 	private Uri uri;
 	
 	@Override
@@ -56,7 +57,17 @@ public class CameraActivity extends BasicActivity {
 		} else {
 			return null;
 		}
-		
 		return mediaFile;
+	}
+	
+	@Override
+	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST || requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST) {
+			if(resultCode == RESULT_OK) {
+				startActivity(new Intent(this, SetterActivity.class).putExtra("path", data.getData()));
+			} else if (resultCode == RESULT_CANCELED) {
+				startActivity(new Intent(this, SetterActivity.class));
+			}
+		}
 	}
 }
