@@ -11,6 +11,7 @@ public class DBHelper extends SQLiteOpenHelper{
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_WORD = "termin";
 	public static final String COLUMN_DESC = "desc";
+	public static final String COLUMN_TYPE = "type";
 	public static final String DB_NAME = "yovoc.db";
 	public static final int DB_VERSION = 1;
 	
@@ -18,7 +19,8 @@ public class DBHelper extends SQLiteOpenHelper{
 										+ TABLE_TERMS + "(" + COLUMN_ID
 										+ " integer primary key autoincrement, "
 										+ COLUMN_WORD + " text not null, "
-										+ COLUMN_DESC + " text not null);";
+										+ COLUMN_DESC + " text not null, "
+										+ COLUMN_TYPE + " text not null);";
 	
 	
 	public DBHelper(final Context context) {

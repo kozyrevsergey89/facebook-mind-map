@@ -14,7 +14,10 @@ public class YovocProvider {
 
 	private SQLiteDatabase dataBase;
 	private DBHelper dbHelper;
-	private String[] columns = {DBHelper.COLUMN_ID, DBHelper.COLUMN_WORD, DBHelper.COLUMN_DESC};
+	private String[] columns = {DBHelper.COLUMN_ID, 
+								DBHelper.COLUMN_WORD, 
+								DBHelper.COLUMN_DESC, 
+								DBHelper.COLUMN_TYPE};
 	
 	public YovocProvider(final Context context) {
 		dbHelper = new DBHelper(context);
@@ -28,17 +31,28 @@ public class YovocProvider {
 		dbHelper.close();
 	}
 	
-	public TermModel createTermin(final String termin, final String descript) {
+	public TermModel createTermin(final String termin, final String descript, final String type) {
 		ContentValues values = new ContentValues();
 		values.put(DBHelper.COLUMN_WORD, termin);
 		values.put(DBHelper.COLUMN_DESC, descript);
+		values.put(DBHelper.COLUMN_TYPE, type);
 		long insertId = dataBase.insert(DBHelper.TABLE_TERMS, null, values);
-		Cursor cursor = dataBase.query(DBHelper.TABLE_TERMS, columns, DBHelper.COLUMN_ID + " = " + insertId,
-					null, null, null, null);
+		Cursor cursor = dataBase.query(DBHelper.TABLE_TERMS, columns, 
+										DBHelper.COLUMN_ID + " = " + insertId,
+										null, null, null, null);
 		cursor.moveToFirst();
 		TermModel term = cursorToTermin(cursor);
 		cursor.close();
 		return term;
+	}
+	
+	
+	public List<TermModel> selectTerms(final String type) {
+		Cursor cursor = dataBase.rawQuery("select * from" 
+											+ DBHelper.DB_NAME 
+											+ " where " + DBHelper.COLUMN_TYPE 
+											+ " = " + type, null);
+		return getSelections(cursor);
 	}
 	
 	public void deleteTermin(final TermModel termin) {
@@ -46,10 +60,8 @@ public class YovocProvider {
 		dataBase.delete(DBHelper.TABLE_TERMS, DBHelper.COLUMN_ID + " = " + id, null);
 	}
 	
-	public List<TermModel> getAllTermins() {
+	private List<TermModel> getSelections(final Cursor cursor) {
 		List<TermModel> termins = new ArrayList<TermModel>();
-		Cursor cursor = dataBase.query(DBHelper.TABLE_TERMS, columns, 
-					null, null, null, null, null);
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()) {
 			TermModel model = cursorToTermin(cursor);
@@ -60,12 +72,18 @@ public class YovocProvider {
 		return termins;
 	}
 	
+	public List<TermModel> getAllTermins() {
+		Cursor cursor = dataBase.query(DBHelper.TABLE_TERMS, columns, 
+										null, null, null, null, null);
+		return getSelections(cursor);
+	}
+	
 	private TermModel cursorToTermin(final Cursor cursor) {
 		TermModel termin = new TermModel();
 		termin.setId(cursor.getLong(0));
 		termin.setTermin(cursor.getString(1));
 		termin.setDescription(cursor.getString(2));
+		termin.setTermType(cursor.getString(3));
 		return termin;
 	}
-	
 }	

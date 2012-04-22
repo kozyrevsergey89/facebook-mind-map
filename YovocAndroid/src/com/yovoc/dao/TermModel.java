@@ -5,6 +5,11 @@ public class TermModel {
 	private long id;
 	private String termin;
 	private String description;
+	private String termType;
+	
+	public static final String AUDIO_TYPE = "audio";
+	public static final String TEXT_TYPE = "text";
+	public static final String IMAGE_TYPE = "image";
 	
 	public void setId(final long id) { this.id = id;}
 	
@@ -18,4 +23,7 @@ public class TermModel {
 	
 	public String getDescription() { return description; }
 	
+	public String getTermType() { return termType; }
+	
+	public void setTermType(final String type) { this.termType = type; }
 }
