@@ -19,6 +19,7 @@
     	android:icon="@drawable/icon" 
     	android:label="@string/app_name"
     	android:name=".app.YovocApplication"
+    	
     	>
         <activity android:name=".YovocAndroidActivity">
             <intent-filter>
