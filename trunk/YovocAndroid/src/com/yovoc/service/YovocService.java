@@ -2,8 +2,9 @@ package com.yovoc.service;
 
 import java.io.IOException;
 
-import media.YovocMediaPlayer;
-import media.YovocRecorder;
+import com.yovoc.media.YovocMediaPlayer;
+import com.yovoc.media.YovocRecorder;
+
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaRecorder;
